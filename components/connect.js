@@ -126,7 +126,7 @@ export default function Connect() {
           </a>
           
           <a 
-            href="pritirekhapanda06@gmail.com" 
+            href="mailto:pritirekhapanda@gmail.com"
             style={{
               color: 'white',
               transition: 'color 0.3s ease'
@@ -138,7 +138,7 @@ export default function Connect() {
           </a>
         </div>
 
-        {/* Footer text */}
+        {/* Footer */}
         <p
           style={{
             fontSize: '0.85rem',
@@ -152,4 +152,5 @@ export default function Connect() {
       </div>
     </section>
   );
+
 }
