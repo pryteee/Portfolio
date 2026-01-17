@@ -4,7 +4,6 @@ import { Github } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register GSAP ScrollTrigger
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -21,7 +20,7 @@ export default function Projects() {
       description: 'Python-based tool to monitor and evaluate the performance and uptime of APIs. Tracks response times, detects unstable endpoints, and logs detailed metrics for analysis. Features automated reporting, CSV/Pandas-based data processing, and visualization of API reliability trends. Helps improve API stability and informs decision-making for developers and stakeholders.',
       image: 'https://images.pexels.com/photos/10816120/pexels-photo-10816120.jpeg',
       tags: ['Python', 'FastAPI', 'Uvicorn', 'HTTP APIs'],
-      github: 'https://github.com/pritirekha06/API-Reliability-Analyzer'
+      github: 'https://github.com/pryteee/API-Reliability-Analyzer'
     },
     {
       title: 'End-to-End ML Pipeline',
@@ -29,7 +28,7 @@ export default function Projects() {
       description: 'Implemented a complete machine learning pipeline using structured tabular data, including data loading, exploration, visualization, feature selection, model training, and evaluation. Built a regression model to predict student performance and assessed accuracy using standard metrics such as MAE and R², ensuring a clear and reproducible ML workflow.',
       image: 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/8711195/cover_image/retina_1708x683/unnamed-f01e6ca9886bcfaaae4f80b6fa51970f.png',
       tags: ['Python', 'Scikit-learn', 'Pandas', 'Matplotlib','Machine Learning'],
-      github: 'https://github.com/pritirekha06/End-to-End-ML-Pipeline'
+      github: 'https://github.com/pryteee/End-to-End-ML-Pipeline'
     },
     {
       title: 'Local Scanner',
@@ -37,14 +36,13 @@ export default function Projects() {
       description: 'A Python-based tool that scans a host machine and private network to identify open ports, running services, connected devices, and local web servers. The tool focuses on safe, owner-only scanning and generates structured reports for visibility and analysis.',
       image: 'https://pentest-tools.com/images/illustrations/tool-pages/website-scanner/showcase-illustration-3.svg',
       tags: ['Python'],
-      github: '#'
+      github: 'https://github.com/pryteee/local_scanner'
     }
   ];
 
   const skills = ['Python', 'Next.js', 'TensorFlow', 'Nmap', 'Kali', 'Git'];      
 
   useEffect(() => {
-    // Setup ScrollTrigger to pin the left panel
     ScrollTrigger.create({
       trigger: containerRef.current,
       start: "top top",
@@ -53,7 +51,6 @@ export default function Projects() {
       pinSpacing: false
     });
 
-    // Animate project cards
     const projectCards = containerRef.current?.querySelectorAll('.project-card');
     if (projectCards) {
       projectCards.forEach((card, index) => {
@@ -95,7 +92,7 @@ export default function Projects() {
         display: 'flex'
       }}>
       
-      {/* LEFT SIDEBAR - FIXED WITH GSAP PINNING */}
+      {/* LEFT SIDEBAR  */}
       <div 
         ref={leftPanelRef}
         style={{
@@ -111,7 +108,7 @@ export default function Projects() {
           overflow: 'hidden'
         }}>
         
-        {/* Grid Background with SMALLER, MORE DOTS */}
+        {/* Grid Background */}
         <div style={{
           position: 'absolute',
           top: 0,
@@ -157,7 +154,6 @@ export default function Projects() {
           }}>
             Building intelligent, data-driven <br/>solutions 
           </h3>
-            {/* Building intelligent, data-driven solutions */}
           <p style={{
             fontSize: '1rem',
             lineHeight: 1.7,
@@ -229,7 +225,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* RIGHT SIDE - SCROLLABLE PROJECTS */}
+      {/* RIGHT SIDE PROJECTS */}
       <div 
         ref={rightPanelRef}
         style={{
@@ -262,13 +258,12 @@ export default function Projects() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}>
               
-              {/* FULL WIDTH IMAGE COVERING ENTIRE LEFT SIDE */}
               <div style={{
                 display: 'flex',
                 gap: '40px',
-                alignItems: 'stretch' // Make both sides same height
+                alignItems: 'stretch' 
               }}>
-                {/* LEFT: FULL PROJECT IMAGE (Covers entire left half) */}
+                {/* FULL PROJECT IMAGE */}
                 <div style={{
                   flex: 1,
                   minHeight: '500px',
@@ -294,7 +289,7 @@ export default function Projects() {
                   />
                 </div>
 
-                {/* RIGHT: PROJECT DETAILS */}
+                {/* PROJECT DETAILS */}
                 <div style={{
                   flex: 1,
                   display: 'flex',
@@ -302,15 +297,6 @@ export default function Projects() {
                   justifyContent: 'center',
                   padding: '20px 0'
                 }}>
-                  {/* Project Number
-                  <div style={{
-                    fontSize: '0.9rem',
-                    color: '#667eea',
-                    fontWeight: '600',
-                    marginBottom: '15px'
-                  }}>
-                    0{index + 1}
-                  </div> */}
 
                   {/* Title */}
                   <h3 style={{
@@ -365,7 +351,7 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  {/* ONLY GitHub Link */}
+                  {/* GitHub Link */}
                   <a href={project.github} style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -401,4 +387,5 @@ export default function Projects() {
       </div>
     </section>
   );
+
 }
