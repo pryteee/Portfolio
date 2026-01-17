@@ -1,19 +1,3 @@
-// import './globals.css';
-
-// export const metadata = {
-//   title: 'Your Name - Portfolio',
-//   description: 'My awesome portfolio',
-// };
-
-// export default function RootLayout({ children }) {
-//   return (
-//     <html lang="en">
-//       <body>{children}</body>
-//     </html>
-//   );
-// }
-
-
 import "./globals.css";
 
 export const metadata = {
@@ -23,8 +7,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen flex flex-col bg-black text-white">
+    <html lang="en" style={{ backgroundColor: '#0f0f0f' }}>
+      <body className="min-h-screen flex flex-col bg-black text-white" style={{ backgroundColor: '#0f0f0f' }}>
         {children}
       </body>
     </html>
