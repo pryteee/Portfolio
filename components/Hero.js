@@ -5,7 +5,7 @@ export default function OptimizedCharacter() {
   const characterRef = useRef(null);
   const overlayRef = useRef(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const imageCache = useRef({}); // Cache for loaded images
+  const imageCache = useRef({});
   
   const animationPhases = [
     {
@@ -30,7 +30,6 @@ export default function OptimizedCharacter() {
     }
   ];
 
-  // Preload ALL images properly
   useEffect(() => {
     let loadedCount = 0;
     const totalImages = animationPhases.reduce((total, phase) => 
@@ -80,7 +79,7 @@ export default function OptimizedCharacter() {
       });
       
       await Promise.all(promises);
-      console.log('✅ All images preloaded and cached');
+      console.log('All images preloaded and cached');
       
       if (characterRef.current && overlayRef.current) {
         characterRef.current.src = animationPhases[0].images[0];
@@ -213,7 +212,7 @@ export default function OptimizedCharacter() {
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
             <button 
               className="social-hover-button"
-              onClick={() => window.open('/resume.pdf', '_blank')}
+              onClick={() => window.open('/Prytee.pdf', '_blank')}
               style={{
                 height: '4em',
                 width: '15em',
@@ -420,4 +419,5 @@ export default function OptimizedCharacter() {
     </div>
   );
 }
+
 
