@@ -39,7 +39,7 @@ export default function OptimizedCharacter() {
     
     const loadImage = (src) => {
       return new Promise((resolve) => {
-        // Check if already cached
+        
         if (imageCache.current[src]) {
           loadedCount++;
           resolve();
@@ -48,7 +48,7 @@ export default function OptimizedCharacter() {
         
         const img = new Image();
         img.onload = () => {
-          // Cache the image
+          
           imageCache.current[src] = img;
           loadedCount++;
           if (loadedCount === totalImages) {
@@ -71,9 +71,9 @@ export default function OptimizedCharacter() {
       const promises = [];
       
       animationPhases.forEach(phase => {
-        // Load final image
+        
         promises.push(loadImage(phase.finalImage));
-        // Load animation images
+        
         phase.images.forEach(imgSrc => {
           promises.push(loadImage(imgSrc));
         });
@@ -82,7 +82,6 @@ export default function OptimizedCharacter() {
       await Promise.all(promises);
       console.log('✅ All images preloaded and cached');
       
-      // Set initial images from cache
       if (characterRef.current && overlayRef.current) {
         characterRef.current.src = animationPhases[0].images[0];
         overlayRef.current.src = animationPhases[0].finalImage;
@@ -90,15 +89,13 @@ export default function OptimizedCharacter() {
     };
     
     preloadAllImages();
-    
-    // Set immediate fallback
+ 
     if (characterRef.current && overlayRef.current) {
       characterRef.current.src = animationPhases[0].images[0];
       overlayRef.current.src = animationPhases[0].finalImage;
     }
   }, []);
 
-  // Start animation with cached images
   useEffect(() => {
     if (!imagesLoaded) return;
     
@@ -106,12 +103,11 @@ export default function OptimizedCharacter() {
     let frameIndex = 0;
     let animationId;
     let lastFrameTime = 0;
-    const frameInterval = 280; // Reduced from 300ms to 200ms
+    const frameInterval = 280; 
     
     const animate = (timestamp) => {
       if (!characterRef.current || !overlayRef.current) return;
       
-      // Use requestAnimationFrame for smoother animation
       if (timestamp - lastFrameTime < frameInterval) {
         animationId = requestAnimationFrame(animate);
         return;
@@ -121,11 +117,9 @@ export default function OptimizedCharacter() {
       
       const currentPhase = animationPhases[phaseIndex];
       
-      // Use cached images if available
       const overlaySrc = currentPhase.finalImage;
       const characterSrc = currentPhase.images[frameIndex];
       
-      // Direct DOM manipulation for speed
       if (overlayRef.current.src !== overlaySrc) {
         overlayRef.current.src = overlaySrc;
       }
@@ -249,11 +243,13 @@ export default function OptimizedCharacter() {
               <div className="icon-container" style={{
                 zIndex: -1,
                 width: 0,
-                position: 'relative',
+                position: 'absolute',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                transform: 'translateY(-50px)',
+                top: '50%', 
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
                 transition: 'all 0.4s'
               }}>
                 <svg viewBox="0 0 24 24" fill="black" width="35" height="35" style={{ padding: '0 10px' }}>
@@ -424,3 +420,4 @@ export default function OptimizedCharacter() {
     </div>
   );
 }
+
