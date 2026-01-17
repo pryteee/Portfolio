@@ -6,109 +6,51 @@ export default function OptimizedCharacter() {
   const overlayRef = useRef(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   
-  // Your ORIGINAL Blush.design links
   const animationPhases = [
     {
       name: 'Face',
       finalImage: '/IMG B.png',
-      images: [
-        '/IMGF1.png',
-        '/IMGF2.png',
-        '/IMGF3.png',
-        '/IMGF4.png',
-        '/IMGF5.png',
-        '/IMGF6.png',
-        '/IMGF7.png',
-        '/IMGF8.png'
-      ]
+      images: ['/IMGF1.png', '/IMGF2.png', '/IMGF3.png', '/IMGF4.png', '/IMGF5.png', '/IMGF6.png', '/IMGF7.png', '/IMGF8.png']
     },
     {
       name: 'Glass',
       finalImage: '/IMG A.png',
-      images: [
-        '/IMGG1.png',
-        '/IMGG2.png',
-        '/IMGG3.png',
-        '/IMGG4.png',
-        '/IMGG5.png',
-        '/IMGG6.png',
-        '/IMGG7.png',
-        '/IMGG8.png'
-      ]
+      images: ['/IMGG1.png', '/IMGG2.png', '/IMGG3.png', '/IMGG4.png', '/IMGG5.png', '/IMGG6.png', '/IMGG7.png', '/IMGG8.png']
     },
     {
       name: 'Outfit',
       finalImage: '/IMG C.png',
-      images: [
-        '/IMGD1.png',
-        '/IMGD2.png',
-        '/IMGD3.png',
-        '/IMGD4.png',
-        '/IMGD5.png',
-        '/IMGD6.png',
-        '/IMGD7.png',
-        '/IMGD8.png'
-      ]
+      images: ['/IMGD1.png', '/IMGD2.png', '/IMGD3.png', '/IMGD4.png', '/IMGD5.png', '/IMGD6.png', '/IMGD7.png', '/IMGD8.png']
     },
     {
       name: 'Hair',
       finalImage: '/IMG D.png',
-      images: [
-        '/IMGH1.png',
-        '/IMGH2.png',
-        '/IMGH3.png',
-        '/IMGH4.png',
-        '/IMGH5.png',
-        '/IMGH6.png',
-        '/IMGH7.png'
-      ]
+      images: ['/IMGH1.png', '/IMGH2.png', '/IMGH3.png', '/IMGH4.png', '/IMGH5.png', '/IMGH6.png', '/IMGH7.png']
     }
   ];
 
-  // CRITICAL: Preload ALL images before animation starts
   useEffect(() => {
-    let loadedCount = 0;
-    const totalImages = animationPhases.reduce((total, phase) => total + phase.images.length + 1, 0);
-    
-    const loadImage = (src) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => {
-          loadedCount++;
-          if (loadedCount === totalImages) {
-            setImagesLoaded(true);
-          }
-          resolve();
-        };
-        img.onerror = () => {
-          loadedCount++;
-          if (loadedCount === totalImages) {
-            setImagesLoaded(true);
-          }
-          resolve();
-        };
-        img.src = src;
-      });
-    };
-    
-    const loadAllImages = async () => {
-      const promises = [];
-      
+    if (characterRef.current && overlayRef.current) {
+      characterRef.current.src = animationPhases[0].images[0];
+      overlayRef.current.src = '/IMG B.png';
+      setImagesLoaded(true);
+    }
+
+    const loadAllImages = () => {
       animationPhases.forEach(phase => {
-        promises.push(loadImage(phase.finalImage));
+        const img1 = new Image();
+        img1.src = phase.finalImage;
         phase.images.forEach(imgUrl => {
-          promises.push(loadImage(imgUrl));
+          const img2 = new Image();
+          img2.src = imgUrl;
         });
       });
-      
-      await Promise.all(promises);
-      console.log('All images preloaded. Starting animation...');
     };
     
     loadAllImages();
   }, []);
 
-  // Animation only starts AFTER images are loaded
+  // Start animation
   useEffect(() => {
     if (!imagesLoaded) return;
     
@@ -188,7 +130,7 @@ export default function OptimizedCharacter() {
               marginBottom: '25px',
               fontFamily: '"Book Antiqua", serif',
               letterSpacing: '2px',
-              textTransform: 'uppercase' //'capitalize'
+              textTransform: 'uppercase'
             }}>
               Pritirekha Panda
             </span>
@@ -202,13 +144,11 @@ export default function OptimizedCharacter() {
             fontFamily: "'Bradley Hand ITC', 'Segoe Script', 'Brush Script MT', cursive",
             fontWeight: '300'
           }}>
-          I’m a Data Science student passionate about AI/ML and Cyber Security.  
+          I'm a Data Science student passionate about AI/ML and Cyber Security.  
           I work with data-driven approaches to understand intelligent systems, with a growing focus on secure and reliable networked solutions.
           </p>
 
-          {/* Animated Button */}
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-            {/* Resume Button */}
             <button 
               className="social-hover-button"
               onClick={() => window.open('/resume.pdf', '_blank')}
@@ -255,7 +195,6 @@ export default function OptimizedCharacter() {
               </div>
             </button>
 
-            {/* LinkedIn Button */}
             <button 
               className="social-hover-button"
               onClick={() => window.open('https://www.linkedin.com/in/pritirekha-panda-9b894a324?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', '_blank')}
@@ -318,8 +257,7 @@ export default function OptimizedCharacter() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            animation: imagesLoaded ? 'float 4s ease-in-out infinite' : 'none',
-            opacity: imagesLoaded ? 1 : 0.3
+            animation: 'float 4s ease-in-out infinite'
           }}>
             
             <div style={{
