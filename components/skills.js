@@ -201,7 +201,7 @@ export default function Skills() {
         
         {/* CURVING TITLE EFFECT */}
         <div style={{
-          marginBottom: '80px',
+          marginBottom: '150px',
           textAlign: 'center'
         }}>
           <div style={{
@@ -319,3 +319,4 @@ export default function Skills() {
     </section>
   );
 }
+
