@@ -1,4 +1,3 @@
-// This is just an icon library - no imports needed
 export const Icons = {
   instagram: (props) => (
     <svg
@@ -125,4 +124,5 @@ export const Icons = {
       <line x1="10" y1="14" x2="21" y2="3"></line>
     </svg>
   ),
+
 };
