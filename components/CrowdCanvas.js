@@ -203,7 +203,7 @@ export default function CrowdCanvas({ src = '/all-peeps.png', rows = 15, cols = 
     <canvas
       ref={canvasRef}
       style={{
-        position: 'fixed',
+        position: 'absolute',
         bottom: 0,
         left: 0,
         width: '100%',
@@ -213,4 +213,5 @@ export default function CrowdCanvas({ src = '/all-peeps.png', rows = 15, cols = 
       }}
     />
   );
+
 }
