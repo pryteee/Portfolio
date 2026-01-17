@@ -1,4 +1,3 @@
-// components/About.js
 'use client';
 import { useRef } from 'react';
 import VariableProximity from './VariableProximity';
@@ -26,7 +25,7 @@ export default function About() {
         gap: '60px'
       }}>
         
-        {/* About heading - Left aligned, Ink Free font */}
+        {/* About heading */}
         <h2 style={{
           fontSize: '4rem',
           fontWeight: 'normal',
@@ -51,7 +50,7 @@ export default function About() {
             fontFamily: '"Roboto Flex", sans-serif',
             letterSpacing: '0.5px',
             fontWeight: '300',
-            textAlign: 'left', // Changed back to left
+            textAlign: 'left',
             padding: '10px',
             width: '100%'
           }}
@@ -69,4 +68,5 @@ export default function About() {
       </div>
     </section>
   );
+
 }
