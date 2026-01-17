@@ -1,4 +1,3 @@
-// components/VariableProximity.js
 'use client';
 
 import { forwardRef, useMemo, useRef, useEffect } from 'react';
@@ -183,4 +182,5 @@ const VariableProximity = forwardRef((props, ref) => {
 });
 
 VariableProximity.displayName = 'VariableProximity';
+
 export default VariableProximity;
