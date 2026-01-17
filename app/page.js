@@ -13,7 +13,7 @@ import RightClickMenu from '../components/Click';
 export default function Home() {
   return (
     <>
-      <RightClickMenu /> {/* Add this line */}
+      <RightClickMenu />
       <SmoothScroll>
         <main style={{ background: '#000000' }}>
           <Hero />
@@ -27,4 +27,5 @@ export default function Home() {
       </SmoothScroll>
     </>
   );
+
 }
