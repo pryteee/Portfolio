@@ -5,6 +5,7 @@ export default function OptimizedCharacter() {
   const characterRef = useRef(null);
   const overlayRef = useRef(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const imageCache = useRef({}); // Cache for loaded images
   
   const animationPhases = [
     {
@@ -29,42 +30,109 @@ export default function OptimizedCharacter() {
     }
   ];
 
+  // Preload ALL images properly
   useEffect(() => {
-    if (characterRef.current && overlayRef.current) {
-      characterRef.current.src = animationPhases[0].images[0];
-      overlayRef.current.src = '/IMG B.png';
-      setImagesLoaded(true);
-    }
-
-    const loadAllImages = () => {
-      animationPhases.forEach(phase => {
-        const img1 = new Image();
-        img1.src = phase.finalImage;
-        phase.images.forEach(imgUrl => {
-          const img2 = new Image();
-          img2.src = imgUrl;
-        });
+    let loadedCount = 0;
+    const totalImages = animationPhases.reduce((total, phase) => 
+      total + phase.images.length + 1, 0
+    );
+    
+    const loadImage = (src) => {
+      return new Promise((resolve) => {
+        // Check if already cached
+        if (imageCache.current[src]) {
+          loadedCount++;
+          resolve();
+          return;
+        }
+        
+        const img = new Image();
+        img.onload = () => {
+          // Cache the image
+          imageCache.current[src] = img;
+          loadedCount++;
+          if (loadedCount === totalImages) {
+            setImagesLoaded(true);
+          }
+          resolve();
+        };
+        img.onerror = () => {
+          loadedCount++;
+          if (loadedCount === totalImages) {
+            setImagesLoaded(true);
+          }
+          resolve();
+        };
+        img.src = src;
       });
     };
     
-    loadAllImages();
+    const preloadAllImages = async () => {
+      const promises = [];
+      
+      animationPhases.forEach(phase => {
+        // Load final image
+        promises.push(loadImage(phase.finalImage));
+        // Load animation images
+        phase.images.forEach(imgSrc => {
+          promises.push(loadImage(imgSrc));
+        });
+      });
+      
+      await Promise.all(promises);
+      console.log('✅ All images preloaded and cached');
+      
+      // Set initial images from cache
+      if (characterRef.current && overlayRef.current) {
+        characterRef.current.src = animationPhases[0].images[0];
+        overlayRef.current.src = animationPhases[0].finalImage;
+      }
+    };
+    
+    preloadAllImages();
+    
+    // Set immediate fallback
+    if (characterRef.current && overlayRef.current) {
+      characterRef.current.src = animationPhases[0].images[0];
+      overlayRef.current.src = animationPhases[0].finalImage;
+    }
   }, []);
 
-  // Start animation
+  // Start animation with cached images
   useEffect(() => {
     if (!imagesLoaded) return;
     
     let phaseIndex = 0;
     let frameIndex = 0;
     let animationId;
+    let lastFrameTime = 0;
+    const frameInterval = 280; // Reduced from 300ms to 200ms
     
-    const animate = () => {
+    const animate = (timestamp) => {
       if (!characterRef.current || !overlayRef.current) return;
+      
+      // Use requestAnimationFrame for smoother animation
+      if (timestamp - lastFrameTime < frameInterval) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+      
+      lastFrameTime = timestamp;
       
       const currentPhase = animationPhases[phaseIndex];
       
-      overlayRef.current.src = currentPhase.finalImage;
-      characterRef.current.src = currentPhase.images[frameIndex];
+      // Use cached images if available
+      const overlaySrc = currentPhase.finalImage;
+      const characterSrc = currentPhase.images[frameIndex];
+      
+      // Direct DOM manipulation for speed
+      if (overlayRef.current.src !== overlaySrc) {
+        overlayRef.current.src = overlaySrc;
+      }
+      
+      if (characterRef.current.src !== characterSrc) {
+        characterRef.current.src = characterSrc;
+      }
       
       frameIndex++;
       
@@ -73,13 +141,13 @@ export default function OptimizedCharacter() {
         phaseIndex = (phaseIndex + 1) % animationPhases.length;
       }
       
-      animationId = setTimeout(animate, 300);
+      animationId = requestAnimationFrame(animate);
     };
     
-    animate();
+    animationId = requestAnimationFrame(animate);
     
     return () => {
-      if (animationId) clearTimeout(animationId);
+      if (animationId) cancelAnimationFrame(animationId);
     };
   }, [imagesLoaded]);
 
