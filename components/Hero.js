@@ -212,7 +212,7 @@ export default function OptimizedCharacter() {
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
             <button 
               className="social-hover-button"
-              onClick={() => window.open('/Prytee.pdf', '_blank')}
+              onClick={() => window.open('/Resume.pdf', '_blank')}
               style={{
                 height: '4em',
                 width: '15em',
@@ -419,5 +419,6 @@ export default function OptimizedCharacter() {
     </div>
   );
 }
+
 
 
