@@ -1,6 +1,9 @@
-/* Add these styles */
+html, body {
+  background-color: #0f0f0f !important;
+  margin: 0;
+  padding: 0;
+}
 
-/* Gradient text effect */
 .gradient-text {
   background: linear-gradient(45deg, #ffffff, #a8a8a8, #ffffff);
   background-size: 200% auto;
@@ -16,14 +19,12 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Smooth transitions */
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
 
-/* Backdrop blur support */
 .backdrop-blur-sm {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
