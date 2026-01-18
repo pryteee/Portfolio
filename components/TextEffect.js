@@ -40,8 +40,8 @@ export default function TextEffect() {
         <h1 className="text">I BUILD<span>SKILL</span></h1>
         <h1 className="text">LEARN<span>BY DOING</span></h1>
         <h1 className="text">FAIL<span>GROW</span></h1>
-        <h1 className="text">KEEP STRIVING<span><a href="https://stacksorted.com/text-effects/minh-pham" target="_blank" rel="noopener noreferrer">FORWARD</a></span></h1>
-        <h1 className="text">STILL<span><a href="https://twitter.com/juxtopposed" target="_blank" rel="noopener noreferrer">EVOLVING</a></span></h1>
+        <h1 className="text">KEEP STRIVING<span>FORWARD</span></h1>
+        <h1 className="text">STILL<span>EVOLVING</span></h1>
       </div>
       
       <style jsx>{`
@@ -92,3 +92,4 @@ export default function TextEffect() {
   );
 
 }
+
