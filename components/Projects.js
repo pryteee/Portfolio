@@ -271,22 +271,6 @@ export default function Projects() {
                   overflow: 'hidden',
                   position: 'relative'
                 }}>
-                  <img 
-                    src={project.image}
-                    alt={project.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      transition: 'transform 0.4s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = 'scale(1.05)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = 'scale(1)';
-                    }}
-                  />
                 </div>
 
                 {/* PROJECT DETAILS */}
@@ -389,3 +373,4 @@ export default function Projects() {
   );
 
 }
+
