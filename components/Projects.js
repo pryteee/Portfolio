@@ -264,14 +264,18 @@ export default function Projects() {
                 alignItems: 'stretch' 
               }}>
                 {/* FULL PROJECT IMAGE */}
-                <div style={{
-                  flex: 1,
-                  minHeight: '500px',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  position: 'relative'
-                }}>
-                </div>
+              <div style={{
+                flex: 1,
+                minHeight: '500px',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                position: 'relative',
+                backgroundImage: `url(${project.image})`, 
+                backgroundSize: 'cover',                   
+                backgroundPosition: 'center',              
+                backgroundRepeat: 'no-repeat'              
+              }}>
+              </div>
 
                 {/* PROJECT DETAILS */}
                 <div style={{
@@ -373,4 +377,5 @@ export default function Projects() {
   );
 
 }
+
 
