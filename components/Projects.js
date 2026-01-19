@@ -23,9 +23,9 @@ export default function Projects() {
       github: 'https://github.com/pryteee/API-Reliability-Analyzer'
     },
     {
-      title: 'End-to-End ML Pipeline',
+      title: 'Student-Performance-ML-Model',
       tagline: 'Building and evaluating ML models from tabular data.',
-      description: 'Implemented a complete machine learning pipeline using structured tabular data, including data loading, exploration, visualization, feature selection, model training, and evaluation. Built a regression model to predict student performance and assessed accuracy using standard metrics such as MAE and R², ensuring a clear and reproducible ML workflow.',
+      description: 'Developed a machine learning workflow using structured tabular data, covering data loading, exploration, visualization, feature selection, model training, and evaluation. Built a regression model to predict student performance and evaluated results using standard metrics such as MAE and R², ensuring a clear, reproducible, and well-structured ML development process.',
       image: 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/8711195/cover_image/retina_1708x683/unnamed-f01e6ca9886bcfaaae4f80b6fa51970f.png',
       tags: ['Python', 'Scikit-learn', 'Pandas', 'Matplotlib','Machine Learning'],
       github: 'https://github.com/pryteee/End-to-End-ML-Pipeline'
@@ -377,5 +377,6 @@ export default function Projects() {
   );
 
 }
+
 
 
