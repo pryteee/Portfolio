@@ -23,12 +23,12 @@ export default function Projects() {
       github: 'https://github.com/pryteee/API-Reliability-Analyzer'
     },
     {
-      title: 'Student-Performance-ML-Model',
-      tagline: 'Building and evaluating ML models from tabular data.',
-      description: 'Developed a machine learning workflow using structured tabular data, covering data loading, exploration, visualization, feature selection, model training, and evaluation. Built a regression model to predict student performance and evaluated results using standard metrics such as MAE and R², ensuring a clear, reproducible, and well-structured ML development process.',
+      title: 'Predictive Risk ML Pipeline',
+      tagline: 'End-to-end ML pipeline for actionable student risk assessment',
+      description: 'Built a complete machine learning pipeline capable of processing student data, performing feature engineering, training a predictive model, and exposing real-time predictions through a scalable REST API. The pipeline includes automated data validation, model serialization, and containerized deployment to ensure consistency and reliability across environments. The system delivers actionable risk assessments, enabling timely interventions for students at risk of dropping out.',
       image: 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/8711195/cover_image/retina_1708x683/unnamed-f01e6ca9886bcfaaae4f80b6fa51970f.png',
-      tags: ['Python', 'Scikit-learn', 'Pandas', 'Matplotlib','Machine Learning'],
-      github: 'https://github.com/pryteee/End-to-End-ML-Pipeline'
+      tags: ['Python', 'LightGBM', 'Pandas', 'FastAPI','Docker'],
+      github: 'https://github.com/pryteee/Predictive-Risk-ML-Pipeline'
     },
     {
       title: 'Local Scanner',
@@ -377,6 +377,7 @@ export default function Projects() {
   );
 
 }
+
 
 
 
