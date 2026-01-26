@@ -13,14 +13,14 @@ const animationValue = useTransform(
 
 const x = useTransform(
     scrollYProgress,
-    [0, 0.5], 
-    [distanceFromCenter * 50, 0]
+    [0.1, 0.5], 
+    [distanceFromCenter * 60, 0]
   );
   
   const rotateX = useTransform(
     scrollYProgress,
-    [0, 0.5], 
-    [distanceFromCenter * 50, 0]
+    [0.1, 0.5], 
+    [distanceFromCenter * 60, 0]
   );
 
 
@@ -165,7 +165,7 @@ export default function Skills() {
       id="skills"
       ref={targetRef}
       style={{
-        minHeight: '180vh',
+        minHeight: '220vh',
         background: 'linear-gradient(180deg, #0a0a0a 0%, #111111 100%)',
         padding: '150px 20px 100px',
         color: 'white',
@@ -178,7 +178,7 @@ export default function Skills() {
         justifyContent: 'center'
       }}
     >
-      {/* Background grid pattern */}
+      
       <div style={{
         position: 'absolute',
         top: 0,
@@ -199,13 +199,13 @@ export default function Skills() {
         width: '100%'
       }}>
         
-        {/* CURVING TITLE EFFECT */}
+       
         <div style={{
           marginBottom: '150px',
           textAlign: 'center'
         }}>
           <div style={{
-            fontSize: 'clamp(2.5rem, 7vw, 5rem)',
+            fontSize: 'clamp(3.5rem, 7vw, 5rem)',
             fontWeight: '600',
             textAlign: 'center',
             lineHeight: 1.1,
@@ -228,7 +228,7 @@ export default function Skills() {
           </div>
         </div>
 
-        {/* Tech Stack Grid with motion effects */}
+        
         <motion.div 
           style={{
             display: 'grid',
@@ -319,4 +319,3 @@ export default function Skills() {
     </section>
   );
 }
-
