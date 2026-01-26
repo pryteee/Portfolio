@@ -43,38 +43,49 @@ export default function Projects() {
   const skills = ['Python', 'Next.js', 'TensorFlow', 'Nmap', 'Kali', 'Git'];      
 
   useEffect(() => {
-    ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: "top top",
-      end: "bottom bottom",
-      pin: leftPanelRef.current,
-      pinSpacing: false
-    });
-
-    const projectCards = containerRef.current?.querySelectorAll('.project-card');
-    if (projectCards) {
-      projectCards.forEach((card, index) => {
-        gsap.fromTo(card,
-          {
-            opacity: 0,
-            y: 50
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: index * 0.2,
-            scrollTrigger: {
-              trigger: card,
-              start: "top 80%",
-              toggleActions: "play none none none"
-            }
-          }
-        );
+    
+    const timer = setTimeout(() => {
+      const pinTrigger = ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        pin: leftPanelRef.current,
+        pinSpacing: false,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        fastScrollEnd: true,
+        preventOverlaps: true
       });
-    }
+
+      
+      const projectCards = containerRef.current?.querySelectorAll('.project-card');
+      if (projectCards) {
+        projectCards.forEach((card, index) => {
+          gsap.fromTo(card,
+            {
+              opacity: 0,
+              y: 50
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                end: "top 60%",
+                toggleActions: "play none none reverse",
+                invalidateOnRefresh: true
+              }
+            }
+          );
+        });
+      }
+    }, 100);
 
     return () => {
+      clearTimeout(timer);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -89,10 +100,11 @@ export default function Projects() {
         color: 'white',
         fontFamily: 'system-ui, sans-serif',
         position: 'relative',
-        display: 'flex'
+        display: 'flex',
+        willChange: 'transform'
       }}>
       
-      {/* LEFT SIDEBAR  */}
+      
       <div 
         ref={leftPanelRef}
         style={{
@@ -105,7 +117,8 @@ export default function Projects() {
           borderRight: '1px solid rgba(255,255,255,0.08)',
           position: 'relative',
           borderRadius: '0 20px 20px 0',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          willChange: 'transform'
         }}>
         
         {/* Grid Background */}
@@ -119,7 +132,7 @@ export default function Projects() {
           zIndex: -1
         }}>
           <div style={{
-            position: 'absolute',
+            position: 'relative',
             width: '100%',
             height: '100%',
             backgroundImage: `
@@ -203,29 +216,9 @@ export default function Projects() {
             </div>
           </div>
         </div>
-
-        <div style={{
-          width: '100%',
-          maxWidth: '350px',
-          margin: '0 auto'
-        }}>
-          <img 
-            src="/character.png" 
-            alt="Character"
-            style={{
-              width: '100%',
-              height: 'auto',
-              objectFit: 'contain',
-              filter: 'drop-shadow(0 10px 30px rgba(102, 126, 234, 0.3))'
-            }}
-            onError={(e) => {
-              e.target.style.display = 'none';
-            }}
-          />
-        </div>
       </div>
 
-      {/* RIGHT SIDE PROJECTS */}
+      {/* PROJECTS */}
       <div 
         ref={rightPanelRef}
         style={{
@@ -234,7 +227,6 @@ export default function Projects() {
           minHeight: '100vh'
         }}>
         
-        {/* Projects */}
         <div style={{
           display: 'flex',
           flexDirection: 'column',
@@ -263,19 +255,19 @@ export default function Projects() {
                 gap: '40px',
                 alignItems: 'stretch' 
               }}>
-                {/* FULL PROJECT IMAGE */}
-              <div style={{
-                flex: 1,
-                minHeight: '500px',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                position: 'relative',
-                backgroundImage: `url(${project.image})`, 
-                backgroundSize: 'cover',                   
-                backgroundPosition: 'center',              
-                backgroundRepeat: 'no-repeat'              
-              }}>
-              </div>
+               
+                <div style={{
+                  flex: 1,
+                  minHeight: '500px',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  backgroundImage: `url(${project.image})`, 
+                  backgroundSize: 'cover',                   
+                  backgroundPosition: 'center',              
+                  backgroundRepeat: 'no-repeat'              
+                }}>
+                </div>
 
                 {/* PROJECT DETAILS */}
                 <div style={{
@@ -286,7 +278,6 @@ export default function Projects() {
                   padding: '20px 0'
                 }}>
 
-                  {/* Title */}
                   <h3 style={{
                     fontSize: '2.2rem',
                     fontWeight: 'bold',
@@ -297,7 +288,6 @@ export default function Projects() {
                     {project.title}
                   </h3>
 
-                  {/* Tagline */}
                   <p style={{
                     fontSize: '1.3rem',
                     color: 'rgba(255,255,255,0.7)',
@@ -308,7 +298,6 @@ export default function Projects() {
                     {project.tagline}
                   </p>
 
-                  {/* Description */}
                   <p style={{
                     fontSize: '1.05rem',
                     color: 'rgba(255,255,255,0.6)',
@@ -318,7 +307,6 @@ export default function Projects() {
                     {project.description}
                   </p>
 
-                  {/* Tags */}
                   <div style={{
                     display: 'flex',
                     flexWrap: 'wrap',
@@ -340,7 +328,7 @@ export default function Projects() {
                   </div>
 
                   {/* GitHub Link */}
-                  <a href={project.github} style={{
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '10px',
@@ -375,9 +363,4 @@ export default function Projects() {
       </div>
     </section>
   );
-
 }
-
-
-
-
