@@ -5,7 +5,8 @@ export default function OptimizedCharacter() {
   const characterRef = useRef(null);
   const overlayRef = useRef(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const imageCache = useRef({});
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [startAnimation, setStartAnimation] = useState(false);
   
   const animationPhases = [
     {
@@ -30,102 +31,63 @@ export default function OptimizedCharacter() {
     }
   ];
 
+  
   useEffect(() => {
     let loadedCount = 0;
-    const totalImages = animationPhases.reduce((total, phase) => 
-      total + phase.images.length + 1, 0
-    );
+    const allImages = [];
     
-    const loadImage = (src) => {
-      return new Promise((resolve) => {
-        
-        if (imageCache.current[src]) {
-          loadedCount++;
-          resolve();
-          return;
-        }
-        
+    animationPhases.forEach(phase => {
+      allImages.push(phase.finalImage);
+      allImages.push(...phase.images);
+    });
+    
+    const totalImages = allImages.length;
+    
+    const preloadImage = (src) => {
+      return new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
-          
-          imageCache.current[src] = img;
           loadedCount++;
-          if (loadedCount === totalImages) {
-            setImagesLoaded(true);
-          }
+          setLoadingProgress(Math.round((loadedCount / totalImages) * 100));
           resolve();
         };
         img.onerror = () => {
           loadedCount++;
-          if (loadedCount === totalImages) {
-            setImagesLoaded(true);
-          }
+          setLoadingProgress(Math.round((loadedCount / totalImages) * 100));
           resolve();
         };
         img.src = src;
       });
     };
     
-    const preloadAllImages = async () => {
-      const promises = [];
-      
-      animationPhases.forEach(phase => {
-        
-        promises.push(loadImage(phase.finalImage));
-        
-        phase.images.forEach(imgSrc => {
-          promises.push(loadImage(imgSrc));
-        });
+    Promise.all(allImages.map(src => preloadImage(src)))
+      .then(() => {
+        if (characterRef.current && overlayRef.current) {
+          characterRef.current.src = animationPhases[0].images[0];
+          overlayRef.current.src = '/IMG B.png';
+        }
+        setTimeout(() => {
+          setImagesLoaded(true);
+          setTimeout(() => setStartAnimation(true), 100);
+        }, 100);
       });
-      
-      await Promise.all(promises);
-      console.log('All images preloaded and cached');
-      
-      if (characterRef.current && overlayRef.current) {
-        characterRef.current.src = animationPhases[0].images[0];
-        overlayRef.current.src = animationPhases[0].finalImage;
-      }
-    };
-    
-    preloadAllImages();
- 
-    if (characterRef.current && overlayRef.current) {
-      characterRef.current.src = animationPhases[0].images[0];
-      overlayRef.current.src = animationPhases[0].finalImage;
-    }
   }, []);
 
+  // Character animation
   useEffect(() => {
     if (!imagesLoaded) return;
     
     let phaseIndex = 0;
     let frameIndex = 0;
     let animationId;
-    let lastFrameTime = 0;
-    const frameInterval = 280; 
     
-    const animate = (timestamp) => {
+    const animate = () => {
       if (!characterRef.current || !overlayRef.current) return;
-      
-      if (timestamp - lastFrameTime < frameInterval) {
-        animationId = requestAnimationFrame(animate);
-        return;
-      }
-      
-      lastFrameTime = timestamp;
       
       const currentPhase = animationPhases[phaseIndex];
       
-      const overlaySrc = currentPhase.finalImage;
-      const characterSrc = currentPhase.images[frameIndex];
-      
-      if (overlayRef.current.src !== overlaySrc) {
-        overlayRef.current.src = overlaySrc;
-      }
-      
-      if (characterRef.current.src !== characterSrc) {
-        characterRef.current.src = characterSrc;
-      }
+      overlayRef.current.src = currentPhase.finalImage;
+      characterRef.current.src = currentPhase.images[frameIndex];
       
       frameIndex++;
       
@@ -134,82 +96,119 @@ export default function OptimizedCharacter() {
         phaseIndex = (phaseIndex + 1) % animationPhases.length;
       }
       
-      animationId = requestAnimationFrame(animate);
+      animationId = setTimeout(animate, 300);
     };
     
-    animationId = requestAnimationFrame(animate);
+    animate();
     
     return () => {
-      if (animationId) cancelAnimationFrame(animationId);
+      if (animationId) clearTimeout(animationId);
     };
   }, [imagesLoaded]);
 
   return (
     <div style={{
-      height: 'calc(100vh - 80px)',
-      minHeight: '500px',
+      minHeight: '100vh',
       background: '#0f0f0f',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '45px',
+      padding: 'clamp(20px, 5vw, 45px)',
       fontFamily: "'Ink Free', 'Segoe Script', 'Brush Script MT', cursive",
+      position: 'relative',
+      overflow: 'hidden'
     }}>
+      
+
       <div style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '80px',
+        gap: 'clamp(20px, 5vw, 80px)',
         maxWidth: '1300px',
         width: '100%',
+        flexDirection: 'row',
         flexWrap: 'wrap'
       }}>
-        
-        {/* LEFT TEXT */}
-        <div style={{ maxWidth: '900px', color: 'white', flex: 1 }}>
+       
+        <div 
+          className="slide-in-left"
+          style={{ 
+            maxWidth: '900px', 
+            color: 'white', 
+            flex: 1,
+            minWidth: '280px',
+            textAlign: 'left',
+            transform: startAnimation ? 'translateX(0)' : 'translateX(-100px)',
+            opacity: startAnimation ? 1 : 0,
+            transition: 'all 1s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}>
+          
+          
           <h1 style={{
-            fontSize: '5rem',
+            fontSize: 'clamp(2.5rem, 8vw, 5rem)',
             fontWeight: 'normal',
             marginBottom: '10px',
             lineHeight: 1.1
           }}>
             <span style={{
               color: '#a8a8a8',
-              fontSize: '2.3rem',
+              fontSize: 'clamp(1.5rem, 4vw, 2.3rem)',
               display: 'block',
-              marginBottom: '20px',
+              marginBottom: 'clamp(10px, 2vw, 20px)',
               fontFamily: "'Bradley Hand ITC', 'Segoe Script', 'Brush Script MT', cursive",
-              fontWeight: '300'
+              fontWeight: '300',
+              transform: startAnimation ? 'translateX(0)' : 'translateX(-80px)',
+              opacity: startAnimation ? 1 : 0,
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s'
             }}>
               Hi, I'm
             </span>
+            
+          
             <span style={{ 
               color: 'white',
-              fontSize: '3.4rem',
+              fontSize: 'clamp(2rem, 6vw, 3.4rem)',
               display: 'block',
               fontWeight: 'bold',
-              marginBottom: '25px',
+              marginBottom: 'clamp(15px, 3vw, 25px)',
               fontFamily: '"Book Antiqua", serif',
               letterSpacing: '2px',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              transform: startAnimation ? 'translateX(0)' : 'translateX(-80px)',
+              opacity: startAnimation ? 1 : 0,
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s'
             }}>
               Pritirekha Panda
             </span>
           </h1>
 
+          
           <p style={{
-            fontSize: '1.6rem',
+            fontSize: 'clamp(1rem, 2.5vw, 1.6rem)',
             lineHeight: 1.4,
             color: 'rgba(255,255,255,0.85)',
-            marginBottom: '40px',
+            marginBottom: 'clamp(20px, 4vw, 40px)',
             fontFamily: "'Bradley Hand ITC', 'Segoe Script', 'Brush Script MT', cursive",
-            fontWeight: '300'
+            fontWeight: '300',
+            transform: startAnimation ? 'translateX(0)' : 'translateX(-80px)',
+            opacity: startAnimation ? 1 : 0,
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s'
           }}>
           I'm a Data Science student passionate about AI/ML and Cyber Security.  
           I work with data-driven approaches to understand intelligent systems, with a growing focus on secure and reliable networked solutions.
           </p>
 
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+          {/* Buttons */}
+          <div style={{ 
+            display: 'flex', 
+            gap: '30px', 
+            flexWrap: 'wrap',
+            justifyContent: 'flex-start',
+            transform: startAnimation ? 'translateX(0)' : 'translateX(-80px)',
+            opacity: startAnimation ? 1 : 0,
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s'
+          }}>
             <button 
               className="social-hover-button"
               onClick={() => window.open('/Resume.pdf', '_blank')}
@@ -290,11 +289,13 @@ export default function OptimizedCharacter() {
               <div className="icon-container" style={{
                 zIndex: -1,
                 width: 0,
-                position: 'relative',
+                position: 'absolute',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                transform: 'translateY(-50px)',
+                top: '50%', 
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
                 transition: 'all 0.4s'
               }}>
                 <svg viewBox="0 0 24 24" fill="black" width="35" height="35" style={{ padding: '0 10px' }}>
@@ -308,9 +309,13 @@ export default function OptimizedCharacter() {
         {/* RIGHT CHARACTER */}
         <div style={{
           position: 'relative',
-          width: '500px',
-          height: '500px',
-          flexShrink: 0
+          width: 'clamp(300px, 40vw, 500px)',
+          height: 'clamp(300px, 40vw, 500px)',
+          flexShrink: 0,
+          margin: '0 auto',
+          opacity: startAnimation ? 1 : 0,
+          transform: startAnimation ? 'scale(1)' : 'scale(0.8)',
+          transition: 'all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s'
         }}>
           
           <div style={{
@@ -320,7 +325,7 @@ export default function OptimizedCharacter() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            animation: 'float 4s ease-in-out infinite'
+            animation: imagesLoaded ? 'float 4s ease-in-out infinite' : 'none'
           }}>
             
             <div style={{
@@ -415,10 +420,13 @@ export default function OptimizedCharacter() {
           z-index: 2 !important;
           width: 100% !important;
         }
+
+        @media (max-width: 768px) {
+          .slide-in-left {
+            text-align: center !important;
+          }
+        }
       `}</style>
     </div>
   );
 }
-
-
-
