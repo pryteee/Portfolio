@@ -1,6 +1,7 @@
 {
   "name": "myportfolio",
   "version": "0.1.0",
+  "type": "module", 
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -26,4 +27,5 @@
     "eslint-config-next": "14.0.0"
   }
 }
+
 
