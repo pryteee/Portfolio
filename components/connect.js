@@ -45,7 +45,7 @@ export default function Connect() {
             textShadow: '0 1px 5px rgba(0, 0, 0, 0.8)',
           }}
         >
-          Always open to collaboration or just a quick catch-up!
+          Always open to collaboration or just a quick catch-up!!
         </p>
 
         {/* Social icons */}
@@ -153,4 +153,5 @@ export default function Connect() {
   );
 
 }
+
 
