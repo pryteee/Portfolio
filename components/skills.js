@@ -167,7 +167,7 @@ export default function Skills() {
       style={{
         minHeight: '220vh',
         background: 'linear-gradient(180deg, #0a0a0a 0%, #111111 100%)',
-        padding: '150px 20px 100px',
+        padding: '0px 20px 0px',
         color: 'white',
         fontFamily: '"Aptos Narrow", system-ui, sans-serif',
         position: 'relative',
@@ -201,7 +201,7 @@ export default function Skills() {
         
        
         <div style={{
-          marginBottom: '150px',
+          marginBottom: '180px',
           textAlign: 'center'
         }}>
           <div style={{
@@ -319,3 +319,4 @@ export default function Skills() {
     </section>
   );
 }
+
