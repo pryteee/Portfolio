@@ -25,7 +25,7 @@ export default function Connect() {
           background: 'transparent',
         }}
       >
-        {/* Heading */}
+        
         <h2
           style={{
             fontSize: '3rem',
@@ -37,7 +37,6 @@ export default function Connect() {
           Let&apos;s <span style={{ color: '#ffffff' }}>Connect</span>
         </h2>
 
-        {/* Sub text */}
         <p
           style={{
             fontSize: '1.1rem',
@@ -46,7 +45,7 @@ export default function Connect() {
             textShadow: '0 1px 5px rgba(0, 0, 0, 0.8)',
           }}
         >
-          Feel free to reach out for collaborations or just a friendly chat!
+          Always open to collaboration or just a quick catch-up!
         </p>
 
         {/* Social icons */}
@@ -97,7 +96,7 @@ export default function Connect() {
             onMouseEnter={(e) => e.currentTarget.style.color = '#a0a0a0'}
             onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
           >
-            {/* X Logo SVG */}
+      
             <svg 
               width="24" 
               height="24" 
@@ -154,3 +153,4 @@ export default function Connect() {
   );
 
 }
+
