@@ -125,7 +125,7 @@ export default function Connect() {
           </a>
           
           <a 
-            href="mailto:pritirekhapanda@gmail.com"
+            href="mailto:pritirekhapanda06@gmail.com"
             style={{
               color: 'white',
               transition: 'color 0.3s ease'
@@ -153,5 +153,6 @@ export default function Connect() {
   );
 
 }
+
 
 
