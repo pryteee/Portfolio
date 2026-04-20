@@ -58,7 +58,7 @@ export default function Connect() {
           }}
         >
           <a 
-            href="https://github.com/pryteee" 
+            href="LINKKKKKKKKKKKKKKK" 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{
@@ -72,7 +72,7 @@ export default function Connect() {
           </a>
           
           <a 
-            href="https://www.linkedin.com/in/pritirekha-panda-9b894a324?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
+            href="LINKKKKKKKKKKKKKKK" 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{
@@ -86,7 +86,7 @@ export default function Connect() {
           </a>
           
           <a 
-            href="https://x.com/Pritirekha_06" 
+            href="LINKKKKKKKKKKK" 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{
@@ -111,7 +111,7 @@ export default function Connect() {
           </a>
           
           <a 
-            href="https://www.instagram.com/priti_rekha_panda?igsh=MWRwNzQzcTViMzNndQ==" 
+            href="LINKKKKKKKKKKK" 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{
@@ -125,7 +125,7 @@ export default function Connect() {
           </a>
           
           <a 
-            href="mailto:pritirekhapanda06@gmail.com"
+            href="mailto:NAME@gmail.com"
             style={{
               color: 'white',
               transition: 'color 0.3s ease'
