@@ -259,7 +259,7 @@ export default function OptimizedCharacter() {
 
             <button 
               className="social-hover-button"
-              onClick={() => window.open('https://www.linkedin.com/in/pritirekha-panda-9b894a324?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', '_blank')}
+              onClick={() => window.open('LINKKKKKKKKKKKKKK')}
               style={{
                 height: '4em',
                 width: '15em',
