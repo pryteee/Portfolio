@@ -15,7 +15,7 @@ export default function TextEffect() {
         ease: 'none',
         scrollTrigger: {
           trigger: text,
-          start: 'Top 100%',
+          start: 'top 100%',
           end: 'center 20%',
           scrub: true,
         },
@@ -63,24 +63,28 @@ export default function TextEffect() {
           align-items: flex-start;
           justify-content: center;
           position: relative;
+          overflow: hidden;
         }
         
         .text span {
           position: absolute;
+          top: 0;
+          left: 0;
           width: 100%;
           height: 100%;
           background-color: #4246ce;
           color: #0D0D0D;
-          clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+          transform: scaleY(0);
           transform-origin: center;
           transition: all cubic-bezier(.1,.5,.5,1) 0.4s;
           display: flex;
           flex-direction: column;
           justify-content: center;
+          pointer-events: none;
         }
         
         .text:hover > span {
-          clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+          transform: scaleY(1);
         }
         
         a {
@@ -90,6 +94,4 @@ export default function TextEffect() {
       `}</style>
     </section>
   );
-
 }
-
