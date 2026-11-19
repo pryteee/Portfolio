@@ -195,8 +195,7 @@ export default function OptimizedCharacter() {
             opacity: startAnimation ? 1 : 0,
             transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s'
           }}>
-          I'm a Data Science student passionate about AI/ML and Cyber Security.  
-          I work with data-driven approaches to understand intelligent systems, with a growing focus on secure and reliable networked solutions.
+          I'm a Data Science student passionate about AI/ML, Software Development, and building intelligent applications. I enjoy turning ideas into practical solutions through programming, data-driven approaches, and full-stack technologies, with a growing interest in developing scalable and intelligent software systems.
           </p>
 
           {/* Buttons */}
