@@ -56,7 +56,7 @@ export default function About() {
           }}
         >
           <VariableProximity
-            label="Driven by curiosity around data and intelligent systems, engages in analyzing patterns, exploring machine learning concepts, and understanding real-world applications. Builds knowledge of network security principles that help create secure, reliable, and responsible systems. Approaches problem-solving with curiosity and structure across data, intelligence, and security domains. Applies these interests through academic projects and hands-on practice. Beyond academics, enjoys gaming and photography, with a preference for visual composition and capturing meaningful moments."
+            label="Driven by curiosity about data and technology, I enjoy analysing patterns, exploring machine learning concepts, and understanding how software can solve real-world problems. I am interested in AI/ML, software development, and full-stack technologies, and continuously work on strengthening my skills through academic projects and hands-on experience. I approach problem-solving with curiosity, logical thinking, and a willingness to learn. Beyond academics, I enjoy gaming and photography, particularly visual composition and capturing meaningful moments."
             fromFontVariationSettings="'wght' 300, 'wdth' 100, 'opsz' 14"
             toFontVariationSettings="'wght' 700, 'wdth' 125, 'opsz' 48"
             containerRef={containerRef}
