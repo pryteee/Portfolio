@@ -195,7 +195,7 @@ export default function OptimizedCharacter() {
             opacity: startAnimation ? 1 : 0,
             transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s'
           }}>
-          I'm a Data Science student passionate about AI/ML, Software Development, and building intelligent applications. I enjoy turning ideas into practical solutions through programming, data-driven approaches, and full-stack technologies, with a growing interest in developing scalable and intelligent software systems.
+          A Data Science student with a passion for AI/ML, software development, and emerging technologies. Curious about new ideas, creative problem-solving, and turning concepts into meaningful solutions.
           </p>
 
           {/* Buttons */}
